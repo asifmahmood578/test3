@@ -9,3 +9,7 @@ del C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\log\*.log
 del C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\log\*.gz
 del C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\log\*.zip
 
+del /s /q  C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\log\*
+del /s /q  C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\tmp\*
+>del /s /q  C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\data\*
+
