@@ -13,3 +13,12 @@ del /s /q  C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\log\*
 del /s /q  C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\tmp\*
 del /s /q  C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\data\*
 
+
+
+
+# TypeScript, HTML, JSON, SCSS files
+*.ts text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.scss text eol=lf
+
