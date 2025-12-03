@@ -173,3 +173,11 @@ Quick Outline (methods inside file)	Ctrl+F12	Ctrl+Shift+O	Ctrl+O
 
 
 
+# Ui-Studio internal files
+/webapp/config.hash.json
+/webapp/generator.staged-files.json
+/webapp/ui-security.json
+/webapp/generator.config.json
+*.generated.json
+translations/*.json
+
