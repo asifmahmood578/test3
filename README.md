@@ -181,3 +181,27 @@ Quick Outline (methods inside file)	Ctrl+F12	Ctrl+Shift+O	Ctrl+O
 *.generated.json
 translations/*.json
 
+
+getAssignPayload() {
+  return {
+    ...this.getActionPayload(),         // keep existing payload
+    rowId: this.selectedItem?.id,       // required by backend
+    userId: this.currentUser?.id,       // required by backend
+    learningPathId: this.selectedItem?.learningPathId, // if needed
+    targetDate: this.form.value.targetDate,
+    status: 'OPEN',
+    progress: 0,
+    isConfidential: false
+  };
+}
+
+doAssign(): void {
+  if (this.form.valid) {
+    const payload = this.getAssignPayload();  
+    console.log('Assign Payload:', payload); // optional: check the payload in console
+    this.store.dispatch(fromLearning_path.assignAction(payload));
+  } else {
+    this.featureService.validateForm(this.form);
+  }
+}
+
