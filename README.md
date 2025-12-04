@@ -182,4 +182,45 @@ Quick Outline (methods inside file)	Ctrl+F12	Ctrl+Shift+O	Ctrl+O
 translations/*.json
 
 
+getAssignPayload() {
+  return {
+    ...this.getActionPayload(),   // keep existing payload safe
+    rowId: this.selectedItem?.id,
+    userId: this.currentUser?.id,
+    targetDate: this.form.value.targetDate,
+    status: 'OPEN',
+    progress: 0,
+    isConfidential: false,
+    area: {
+      persistenceStatus: 'NEW',
+      code: this.selectedItem?.areaCode || '',
+      description: this.selectedItem?.areaDescription || '',
+      name: this.selectedItem?.areaName || '',
+      sub: []
+    },
+    catLearningPath: {
+      persistenceStatus: 'NEW',
+      code: this.selectedItem?.learningPathCode || '',
+      description: this.selectedItem?.learningPathDescription || ''
+    },
+    badge: this.selectedItem?.badge || '',
+    badgeContent: this.selectedItem?.badgeContent || '',
+    version: 0,
+    isLoadedByJPA: true,
+    loadedByJPA: true
+  };
+}
+
+
+
+doAssign(): void {
+  if (this.form.valid) {
+    const payload = this.getAssignPayload();
+    console.log('Assign Payload:', payload); // debug
+    this.store.dispatch(fromLearning_path.assignAction(payload));
+  } else {
+    this.featureService.validateForm(this.form);
+  }
+}
+
 
