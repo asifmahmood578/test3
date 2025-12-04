@@ -223,4 +223,10 @@ doAssign(): void {
   }
 }
 
+git rm --cached webapp/config.hash.json
+git rm --cached webapp/generator.staged-files.json
+git rm --cached webapp/ui-security.json
+git rm --cached webapp/*.generated.json
+
+
 
