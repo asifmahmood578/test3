@@ -172,61 +172,131 @@ Search in File	Ctrl+F	Ctrl+F	Ctrl+F
 Quick Outline (methods inside file)	Ctrl+F12	Ctrl+Shift+O	Ctrl+O
 
 
-
-# Ui-Studio internal files
-/webapp/config.hash.json
-/webapp/generator.staged-files.json
-/webapp/ui-security.json
-/webapp/generator.config.json
-*.generated.json
-translations/*.json
+Here are the most useful Google Chrome DevTools shortcuts (clean, practical, and actually used by developers daily):
 
 
-getAssignPayload() {
-  return {
-    ...this.getActionPayload(),   // keep existing payload safe
-    rowId: this.selectedItem?.id,
-    userId: this.currentUser?.id,
-    targetDate: this.form.value.targetDate,
-    status: 'OPEN',
-    progress: 0,
-    isConfidential: false,
-    area: {
-      persistenceStatus: 'NEW',
-      code: this.selectedItem?.areaCode || '',
-      description: this.selectedItem?.areaDescription || '',
-      name: this.selectedItem?.areaName || '',
-      sub: []
-    },
-    catLearningPath: {
-      persistenceStatus: 'NEW',
-      code: this.selectedItem?.learningPathCode || '',
-      description: this.selectedItem?.learningPathDescription || ''
-    },
-    badge: this.selectedItem?.badge || '',
-    badgeContent: this.selectedItem?.badgeContent || '',
-    version: 0,
-    isLoadedByJPA: true,
-    loadedByJPA: true
-  };
-}
+---
+
+🔥 Most Important DevTools Shortcuts
+
+🗂 Open / Navigate
+
+Action	Shortcut
+
+Open DevTools	F12 or Ctrl + Shift + I
+Open Command Palette	Ctrl + Shift + P
+Open File Search	Ctrl + P
+Go to Line	Ctrl + G
+Go to Method / Function	@methodName (inside Ctrl + P)
+Global Search (find in all files)	Ctrl + Shift + F
+Search inside current file	Ctrl + F
 
 
 
-doAssign(): void {
-  if (this.form.valid) {
-    const payload = this.getAssignPayload();
-    console.log('Assign Payload:', payload); // debug
-    this.store.dispatch(fromLearning_path.assignAction(payload));
-  } else {
-    this.featureService.validateForm(this.form);
-  }
-}
+---
 
-git rm --cached webapp/config.hash.json
-git rm --cached webapp/generator.staged-files.json
-git rm --cached webapp/ui-security.json
-git rm --cached webapp/*.generated.json
+🐞 Debugging
+
+Action	Shortcut
+
+Toggle breakpoint on current line	Ctrl + B
+Step Over	F10
+Step Into	F11
+Step Out	Shift + F11
+Resume Script Execution	F8
+Pause Script	F8
+Disable/Enable All Breakpoints	Ctrl + F8
+Open Sources Panel	Ctrl + Shift + S
+
+
+
+---
+
+📄 Console
+
+Action	Shortcut
+
+Open Console	Esc (opens drawer)
+Clear Console	Ctrl + L
+Multiline Console Input	Shift + Enter
+Autocomplete Suggestions	Ctrl + Space
+
+
+
+---
+
+🎨 Elements Panel
+
+Action	Shortcut
+
+Inspect Element	Ctrl + Shift + C
+Edit as HTML	Enter on selected element
+Expand All Nodes	Alt + Click arrow
+Collapse All Nodes	Alt + Click arrow again
+
+
+
+---
+
+🧭 Network
+
+Action	Shortcut
+
+Open Network Panel	Ctrl + Shift + E
+Clear Network Logs	Ctrl + R or Right-click → Clear
+Filter Requests	Ctrl + F
+
+
+
+---
+
+🏎 Performance
+
+Action	Shortcut
+
+Start/Stop Recording	Ctrl + E
+
+
+
+---
+
+⚡ Bonus Tricks (Real Developer Use)
+
+1️⃣ Jump to Source From Console
+
+Type this in console:
+
+debug(myFunction)
+
+It automatically sets a breakpoint inside the function.
+
+2️⃣ Reveal DOM Node in Elements Panel
+
+In console:
+
+$0
+
+Shows the selected element.
+
+3️⃣ Find All Event Listeners
+
+Right-click element → Break on → subtree/attribute modifications.
+
+
+---
+
+If you want, I can also share:
+
+✔ Debugging best practices
+
+✔ How to trace API calls
+
+✔ How to read minified code
+
+✔ Performance profiling tips
+
+
+Just tell me!
 
 
 
