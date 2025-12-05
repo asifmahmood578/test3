@@ -248,55 +248,5 @@ Filter Requests	Ctrl + F
 
 
 
----
-
-🏎 Performance
-
-Action	Shortcut
-
-Start/Stop Recording	Ctrl + E
-
-
-
----
-
-⚡ Bonus Tricks (Real Developer Use)
-
-1️⃣ Jump to Source From Console
-
-Type this in console:
-
-debug(myFunction)
-
-It automatically sets a breakpoint inside the function.
-
-2️⃣ Reveal DOM Node in Elements Panel
-
-In console:
-
-$0
-
-Shows the selected element.
-
-3️⃣ Find All Event Listeners
-
-Right-click element → Break on → subtree/attribute modifications.
-
-
----
-
-If you want, I can also share:
-
-✔ Debugging best practices
-
-✔ How to trace API calls
-
-✔ How to read minified code
-
-✔ Performance profiling tips
-
-
-Just tell me!
-
 
 
