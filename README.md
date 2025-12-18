@@ -250,25 +250,5 @@ Filter Requests	Ctrl + F
 
 
 
-switchMap((context: any) => {
-  const navigationContext = {
-    ...context,
-    path: '/learning_path_by_user/user-view-collection',
-    navigationType: 'switch',
-    feature: 'learning_path_by_user',
-    screen: 'user-view-collection',
-    activeRoute: fromStore.getScreenActiveRoute(context.id),
-    queryParams: {},
-    state: {
-      rowId: context.rowId,
-      data: context.data
-    }
-  };
 
-  return [
-    // Reload table data so the page shows updated content
-    fromLearning_path_by_user.initStateAction(context),
-    // Navigate to the same page
-    fromStore.navigateBySwitchAction(navigationContext)
-  ];
-})
+
