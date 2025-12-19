@@ -248,39 +248,3 @@ Filter Requests	Ctrl + F
 
 
 
-deleteByDAction$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(fromLearning_path_by_user.deleteByDAction),
-    switchMap((payload) =>
-      this.executeDeleteByD(payload).pipe(
-        switchMap((result) => this.postDeleteByDExecute(result)),
-        map(() => fromLearning_path_by_user.deleteByDSuccessAction({ ...payload })),
-        catchError(() => of(fromLearning_path_by_user.deleteByDFailAction({ ...payload })))
-      )
-    )
-  )
-);
-
-
-
-navigateAfterdeleteByD$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(fromLearning_path_by_user.deleteByDSuccessAction),
-    switchMap((context: any) => {
-      const navigationContext = {
-        ...context,
-        navigationType: 'switch',
-        feature: 'learning_path_by_user',
-        screen: 'user-view',
-        outlets: { completion: ['completion', 'user-view-collection'] },
-        activeRoute: fromStore.getScreenActiveRoute(context.rowId),
-        queryParams: {},
-        state: { rowId: context.rowId, data: context.data }
-      };
-      return [
-        fromLearning_path_by_user.initStateAction({ ...context, forceReload: true }),
-        fromStore.navigateBySwitchAction(navigationContext)
-      ];
-    })
-  )
-);
