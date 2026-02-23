@@ -1,4 +1,4 @@
-powershell -command "Get-ChildItem -Directory | ForEach-Object { '{0,10:N1} MB  {1}' -f ((Get-ChildItem $_.FullName -Recurse -ErrorAction SilentlyContinue | Measure-Object Length -Sum).Sum / 1MB), $_.Name } | Sort-Object"
+opowershell -command "Get-ChildItem -Directory | ForEach-Object { '{0,10:N1} MB  {1}' -f ((Get-ChildItem $_.FullName -Recurse -ErrorAction SilentlyContinue | Measure-Object Length -Sum).Sum / 1MB), $_.Name } | Sort-Object"
 
 
 del C:\Public\SOFTWARE\wildfly-15.0.1.Final\standalone\log\*.log
@@ -246,4 +246,13 @@ Open Network Panel	Ctrl + Shift + E
 Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
+SELECT lp.identifier_, lp.name_, lp.description_, a.name_ AS area, s.name_ AS subarea
+FROM learningpath_learningpath lp
+JOIN learningpath_lparea a ON lp.area_identifier = a.identifier_
+JOIN learningpath_lpsubarea s ON lp.subarea_identifier_ = s.identifier_
+WHERE a.name_ = 'Synapse' AND s.name_ = 'FDS';
 
+
+SELECT COUNT(*) FROM learningpath_lparea WHERE name_ = 'Synapse';
+SELECT COUNT(*) FROM learningpath_lpsubarea WHERE name_ = 'FDS';
+SELECT COUNT(*) FROM learningpath_learningpath WHERE area_identifier = (SELECT identifier_ FROM learningpath_lparea WHERE name_='Synapse');
