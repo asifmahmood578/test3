@@ -247,4 +247,29 @@ Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
 
+SELECT *
+FROM learningpath_learningpath lp
+WHERE lp.area_identifier_ IN (
+    SELECT identifier_
+    FROM learningpath_lparea
+    WHERE name_ = 'Synapse'
+)
+AND lp.subarea_identifier_ IN (
+    SELECT identifier_
+    FROM learningpath_lpsubarea
+    WHERE name_ = 'FDS'
+);
 
+SELECT lp.name_,
+       lp.description,
+       lp.level,
+       lp.duration_,
+       a.name_ AS area,
+       sa.name_ AS subarea
+FROM learningpath_learningpath lp
+JOIN learningpath_lparea a
+     ON lp.area_identifier_ = a.identifier_
+JOIN learningpath_lpsubarea sa
+     ON lp.subarea_identifier_ = sa.identifier_
+WHERE a.name_ = 'Synapse'
+AND sa.name_ = 'FDS';
