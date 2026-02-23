@@ -246,15 +246,3 @@ Open Network Panel	Ctrl + Shift + E
 Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
-SELECT lp.name_ AS name,
-       lp.description AS description,
-       lp.level AS level,
-       lp.duration_ AS duration,
-       a.name_ AS area,
-       sa.name_ AS subarea
-FROM learningpath_learningpath lp
-JOIN learningpath_lparea a
-     ON lp.area_identifier_ = a.identifier_
-JOIN learningpath_lpsubarea sa
-     ON lp.subarea_identifier_ = sa.identifier_
-LIMIT 50;
