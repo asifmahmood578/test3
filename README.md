@@ -247,5 +247,189 @@ Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
 
+-- Insert Area 'Synapse' if not exists
+INSERT INTO learningpath_lparea (
+    identifier_,
+    name_,
+    creatoruserid_,
+    updatoruserid_,
+    updatedate_,
+    type_,
+    description_,
+    creationdate_,
+    version_
+)
+SELECT 
+    COALESCE(MAX(identifier_), 0) + 1,   -- Auto increment next ID
+    'Synapse',
+    'Asif',                              -- your name
+    'Asif',
+    NOW(),
+    'Learning Area',
+    'Learning area for Synapse',
+    NOW(),
+    1
+FROM learningpath_lparea
+WHERE NOT EXISTS (
+    SELECT 1 FROM learningpath_lparea WHERE name_ = 'Synapse'
+);
 
 
+-- Insert Subarea 'FDS' if not exists
+INSERT INTO learningpath_lpsubarea (
+    identifier_,
+    name_,
+    creatoruserid_,
+    updatoruserid_,
+    updatedate_,
+    type_,
+    description_,
+    creationdate_,
+    version_
+)
+SELECT 
+    COALESCE(MAX(identifier_), 0) + 1,
+    'FDS',
+    'Asif',
+    'Asif',
+    NOW(),
+    'Learning Subarea',
+    'Subarea for FDS',
+    NOW(),
+    1
+FROM learningpath_lpsubarea
+WHERE NOT EXISTS (
+    SELECT 1 FROM learningpath_lpsubarea WHERE name_ = 'FDS'
+);
+
+
+-- Insert learning paths under Synapse -> FDS
+INSERT INTO learningpath_learningpath (
+    identifier,
+    name_,
+    description_,
+    level,
+    duration_,
+    area_identifier,
+    subarea_identifier_,
+    creatoruserid,
+    updatoruserid,
+    updatedate,
+    type_,
+    creationdate_,
+    version_
+)
+SELECT
+    COALESCE(MAX(identifier),0)+1,
+    lp_name,
+    lp_desc,
+    NULL,                -- level
+    NULL,                -- duration
+    a.identifier_,
+    s.identifier_,
+    'Asif',              -- creator
+    'Asif',              -- updator
+    NOW(),
+    'Learning Path',     -- type
+    NOW(),
+    1
+FROM (VALUES
+    ('FDS Comet Order Learning Path', 'FDS Comet Order Learning Path'),
+    ('FDS IT Architecture', 'Learning path about the FDS Architecture'),
+    ('Introduction to FDS IT Line', 'Introduction to FDS IT Line')
+) AS paths(lp_name, lp_desc)
+CROSS JOIN (SELECT identifier_ FROM learningpath_lparea WHERE name_ = 'Synapse') AS a
+CROSS JOIN (SELECT identifier_ FROM learningpath_lpsubarea WHERE name_ = 'FDS') AS s;
+
+
+-- Step 1: Ensure Area 'Synapse' exists
+INSERT INTO learningpath_lparea (
+    identifier_,
+    name_,
+    creatoruserid_,
+    updatoruserid_,
+    updatedate_,
+    type_,
+    description_,
+    creationdate_,
+    version_
+)
+SELECT 
+    COALESCE(MAX(identifier_), 0) + 1,
+    'Synapse',
+    'Asif',           -- your name as creator
+    'Asif',           -- your name as updator
+    NOW(),
+    'Learning Area',
+    'Learning area for Synapse',
+    NOW(),
+    1
+FROM learningpath_lparea
+WHERE NOT EXISTS (
+    SELECT 1 FROM learningpath_lparea WHERE name_ = 'Synapse'
+);
+
+-- Step 2: Ensure Subarea 'FDS' exists
+INSERT INTO learningpath_lpsubarea (
+    identifier_,
+    name_,
+    creatoruserid_,
+    updatoruserid_,
+    updatedate_,
+    type_,
+    description_,
+    creationdate_,
+    version_
+)
+SELECT 
+    COALESCE(MAX(identifier_), 0) + 1,
+    'FDS',
+    'Asif',
+    'Asif',
+    NOW(),
+    'Learning Subarea',
+    'Subarea for FDS',
+    NOW(),
+    1
+FROM learningpath_lpsubarea
+WHERE NOT EXISTS (
+    SELECT 1 FROM learningpath_lpsubarea WHERE name_ = 'FDS'
+);
+
+-- Step 3: Insert Learning Paths under Synapse -> FDS
+INSERT INTO learningpath_learningpath (
+    identifier,
+    name_,
+    description_,
+    level,
+    duration_,
+    area_identifier,
+    subarea_identifier_,
+    creatoruserid,
+    updatoruserid,
+    updatedate,
+    type_,
+    creationdate_,
+    version_
+)
+SELECT
+    COALESCE(MAX(identifier),0)+1,
+    lp_name,
+    lp_desc,
+    NULL,                -- level
+    NULL,                -- duration
+    a.identifier_,
+    s.identifier_,
+    'Asif',              -- creator
+    'Asif',              -- updator
+    NOW(),
+    'Learning Path',     -- type
+    NOW(),
+    1
+FROM (VALUES
+    ('FDS Comet Order Learning Path', 'FDS Comet Order Learning Path'),
+    ('FDS IT Architecture', 'Learning path about the FDS Architecture'),
+    ('Introduction to FDS IT Line', 'Introduction to FDS IT Line')
+) AS paths(lp_name, lp_desc)
+CROSS JOIN (SELECT identifier_ FROM learningpath_lparea WHERE name_ = 'Synapse') AS a
+CROSS JOIN (SELECT identifier_ FROM learningpath_lpsubarea WHERE name_ = 'FDS') AS s;
