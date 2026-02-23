@@ -248,35 +248,4 @@ Filter Requests	Ctrl + F
 
 
 
--- Ensure Area 'Synapse' exists
-INSERT INTO learningpath_lparea (name_)
-SELECT 'Synapse'
-WHERE NOT EXISTS (
-    SELECT 1 FROM learningpath_lparea WHERE name_ = 'Synapse'
-);
-
--- Ensure Subarea 'FDS' exists
-INSERT INTO learningpath_lpsubarea (name_)
-SELECT 'FDS'
-WHERE NOT EXISTS (
-    SELECT 1 FROM learningpath_lpsubarea WHERE name_ = 'FDS'
-);
-
--- Insert learning paths with correct IDs
-INSERT INTO learningpath_learningpath
-(name_, description_, level, duration_, area_identifier_, subarea_identifier_)
-SELECT lp_name, lp_desc, NULL, NULL, a.identifier_, s.identifier_
-FROM (VALUES
-    ('FDS Comet Order Learning Path', 'FDS Comet Order Learning Path'),
-    ('FDS IT Architecture', 'Learning path about the FDS Architecture'),
-    ('Introduction to FDS IT Line', 'Introduction to FDS IT Line')
-) AS paths(lp_name, lp_desc)
-CROSS JOIN (SELECT identifier_ FROM learningpath_lparea WHERE name_ = 'Synapse') AS a
-CROSS JOIN (SELECT identifier_ FROM learningpath_lpsubarea WHERE name_ = 'FDS') AS s;
-
-
-SELECT lp.name_, lp.description_, a.name_ AS area, sa.name_ AS subarea
-FROM learningpath_learningpath lp
-JOIN learningpath_lparea a ON lp.area_identifier_ = a.identifier_
-JOIN learningpath_lpsubarea sa ON lp.subarea_identifier_ = sa.identifier_;
 
