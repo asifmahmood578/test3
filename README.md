@@ -246,14 +246,3 @@ Open Network Panel	Ctrl + Shift + E
 Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
-SELECT lp.name_,
-       a.name_ AS area,
-       sa.name_ AS subarea
-FROM learningpath_learningpath lp
-JOIN learningpath_lparea a
-     ON lp.area_identifier_ = a.identifier_
-JOIN learningpath_lpsubarea sa
-     ON lp.subarea_identifier_ = sa.identifier_
-WHERE a.name_ ILIKE '%Synapse%'
-  AND sa.name_ ILIKE '%FDS%'
-LIMIT 50;
