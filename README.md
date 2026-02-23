@@ -246,3 +246,41 @@ Open Network Panel	Ctrl + Shift + E
 Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
+
+
+WITH max_id AS (
+    SELECT COALESCE(MAX(identifier_),0) AS current_max 
+    FROM learningpath_learningpath
+)
+INSERT INTO learningpath_learningpath (
+    identifier_,
+    name_,
+    description_,
+    level,
+    duration,
+    area_identifier,
+    subarea_identifier_,
+    creatoruserid,
+    updatoruserid,
+    updatedate,
+    type_,
+    creationdate_,
+    version_
+)
+SELECT
+    current_max + 1,
+    'FDS CACEIS Knowledge',
+    'Knowledge overview about FDS in CACEIS',
+    NULL,
+    NULL,
+    a.identifier_,
+    s.identifier_,
+    'Asif',
+    'Asif',
+    NOW(),
+    'Learning Path',
+    NOW(),
+    1
+FROM max_id
+CROSS JOIN (SELECT identifier_ FROM learningpath_lparea WHERE name_ = 'Synapse') a
+CROSS JOIN (SELECT identifier_ FROM learningpath_lpsubarea WHERE name_ = 'FDS') s;
