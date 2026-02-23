@@ -274,3 +274,9 @@ FROM (VALUES
 CROSS JOIN (SELECT identifier_ FROM learningpath_lparea WHERE name_ = 'Synapse') AS a
 CROSS JOIN (SELECT identifier_ FROM learningpath_lpsubarea WHERE name_ = 'FDS') AS s;
 
+
+SELECT lp.name_, lp.description_, a.name_ AS area, sa.name_ AS subarea
+FROM learningpath_learningpath lp
+JOIN learningpath_lparea a ON lp.area_identifier_ = a.identifier_
+JOIN learningpath_lpsubarea sa ON lp.subarea_identifier_ = sa.identifier_;
+
