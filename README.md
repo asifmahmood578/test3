@@ -247,4 +247,54 @@ Clear Network Logs	Ctrl + R or Right-click → Clear
 Filter Requests	Ctrl + F
 
 
-
+-- Step 3: Insert Learning Paths under Synapse -> FDS
+WITH base AS (
+    SELECT lp_name, lp_desc
+    FROM (VALUES
+        ('FDS Comet Order Learning Path', 'FDS Comet Order Learning Path'),
+        ('FDS IT Architecture', 'Learning path about the FDS Architecture'),
+        ('Introduction to FDS IT Line', 'Introduction to FDS IT Line')
+    ) AS paths(lp_name, lp_desc)
+),
+max_id AS (
+    SELECT COALESCE(MAX(identifier_),0) AS current_max FROM learningpath_learningpath
+),
+numbered AS (
+    SELECT 
+        ROW_NUMBER() OVER () + m.current_max AS new_id,
+        b.lp_name,
+        b.lp_desc
+    FROM base b CROSS JOIN max_id m
+)
+INSERT INTO learningpath_learningpath (
+    identifier_,
+    name_,
+    description_,
+    level,
+    duration,
+    area_identifier,
+    subarea_identifier_,
+    creatoruserid,
+    updatoruserid,
+    updatedate,
+    type_,
+    creationdate_,
+    version_
+)
+SELECT
+    new_id,
+    lp_name,
+    lp_desc,
+    NULL,
+    NULL,
+    a.identifier_,
+    s.identifier_,
+    'Asif',
+    'Asif',
+    NOW(),
+    'Learning Path',
+    NOW(),
+    1
+FROM numbered
+CROSS JOIN (SELECT identifier_ FROM learningpath_lparea WHERE name_ = 'Synapse') AS a
+CROSS JOIN (SELECT identifier_ FROM learningpath_lpsubarea WHERE name_ = 'FDS') AS s;
